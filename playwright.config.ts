@@ -1,9 +1,10 @@
-import { PlaywrightTestConfig } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
-const config: PlaywrightTestConfig = {
+export default defineConfig({
   testDir: 'src/scenarios',
   timeout: 120000,
-  retries: 0,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
   use: {
     trace: 'on',
     channel: 'msedge',
@@ -26,5 +27,4 @@ const config: PlaywrightTestConfig = {
       }
     ]
   ]
-};
-export default config;
+});
